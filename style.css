@@ -1,0 +1,165 @@
+/* Base Colors and Typography */
+:root {
+    --bg-color: #f4f0ea; /* Soft beige */
+    --card-bg: #ffffff; /* Clean white for container */
+    --text-primary: #3d3b38; /* Warm dark grey */
+    --accent-blue: #9ebdd0; /* Muted light blue */
+    --accent-blue-hover: #84a8be;
+    --border-color: #dcd7cf;
+    --output-bg: #edf2f5; /* Very faint blue for the math box */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: Georgia, 'Times New Roman', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    background-color: var(--card-bg);
+    width: 100%;
+    max-width: 650px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-style: italic;
+    color: #7a7671;
+}
+
+/* Inputs */
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 12px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Sans-serif for inputs to keep them clean */
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: #faf9f7;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: var(--accent-blue);
+}
+
+small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: #999;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Checkboxes */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.95rem;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.checkbox-group input {
+    margin-right: 8px;
+    accent-color: var(--accent-blue);
+    width: 16px;
+    height: 16px;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--accent-blue);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background-color: var(--accent-blue-hover);
+}
+
+/* Output Section */
+.output-section {
+    margin-top: 30px;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 30px;
+}
+
+.output-box {
+    background-color: var(--output-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 20px;
+    min-height: 100px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    word-wrap: break-word;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+#copy-btn {
+    background-color: transparent;
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue-hover);
+}
+
+#copy-btn:hover {
+    background-color: var(--accent-blue);
+    color: #fff;
+}

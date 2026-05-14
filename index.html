@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Math Obfuscator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Math Obfuscator</h1>
+            <p>Turn simple numbers into beautiful, terrifying equations.</p>
+        </header>
+
+        <main>
+            <div class="input-group">
+                <label for="target-num">Target Number:</label>
+                <input type="text" id="target-num" placeholder="e.g. 1 or 3.14" value="1">
+                <small>Max 5 decimal places.</small>
+            </div>
+
+            <div class="input-group">
+                <label for="complexity">Equation Length & Complexity:</label>
+                <select id="complexity">
+                    <option value="5">A Little Quirky</option>
+                    <option value="15">Pleasantly Confusing</option>
+                    <option value="35" selected>Downright Absurd</option>
+                    <option value="70">Math Professor's Nightmare</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Ingredients (Rules to Include):</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="arithmetic" class="rule-check" checked> Arithmetic (+, -, *, /)</label>
+                    <label><input type="checkbox" value="constants" class="rule-check" checked> Constants (π, e)</label>
+                    <label><input type="checkbox" value="trigonometry" class="rule-check" checked> Trigonometry (sin², cos²)</label>
+                    <label><input type="checkbox" value="calculus" class="rule-check" checked> Calculus Tricks (d/dx)</label>
+                </div>
+            </div>
+
+            <button id="generate-btn">Make it Crazy!</button>
+
+            <div class="output-section">
+                <div id="output-display" class="output-box">Your equation will appear here...</div>
+                <button id="copy-btn">Copy to Clipboard</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
