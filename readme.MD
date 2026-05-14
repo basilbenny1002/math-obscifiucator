@@ -1,6 +1,6 @@
 # Math Obfuscator
 
-Test it out live: [https://basilbenny1002.github.io/math_obfuscator](https://basilbenny1002.github.io/math_obfuscator)
+Test it out live: [here](https://basilbenny1002.github.io/math-obscifiucator/)
 
 This project basically converts any simple number into a massive, complex set of equations that mathematically evaluate to the original number. 
 
