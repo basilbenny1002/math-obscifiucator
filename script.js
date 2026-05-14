@@ -42,59 +42,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < iterations; i++) {
             // Regex finds whole numbers or decimals that are standalone
-            // It won't break things like sin² because the ² is a unicode symbol, not a digit.
             let numMatches = [...equation.matchAll(/\b\d+(\.\d+)?\b/g)];
             
             if (numMatches.length === 0 || allowedRules.length === 0) break;
 
-            // Pick a random number block from the current string
             let match = numMatches[Math.floor(Math.random() * numMatches.length)];
             let numStr = match[0];
             
-            // Pick a random allowed rule
             let rule = allowedRules[Math.floor(Math.random() * allowedRules.length)];
             let replacement = "";
-            let r = Math.floor(Math.random() * 50) + 2; // Random number for math logic
+            let r = Math.floor(Math.random() * 50) + 2; 
+
 
             switch (rule) {
                 case 'arithmetic':
                     if (Math.random() > 0.5) {
-                        replacement = `(${numStr} + ${r} - ${r})`;
+                        replacement = `(${numStr}+${r}-${r})`;
                     } else {
-                        replacement = `(${numStr} * ${r} / ${r})`;
+                        replacement = `(${numStr}*${r}/${r})`;
                     }
                     break;
                 case 'constants':
                     if (Math.random() > 0.5) {
-                        replacement = `(${numStr} * (π / π))`;
+                        replacement = `(${numStr}*(π/π))`;
                     } else {
-                        replacement = `(${numStr} * ln(e))`;
+                        replacement = `(${numStr}*ln(e))`;
                     }
                     break;
                 case 'trigonometry':
-                    replacement = `(${numStr} * (sin²(${r}) + cos²(${r})))`;
+                    replacement = `(${numStr}*(sin²(${r})+cos²(${r})))`;
                     break;
                 case 'calculus':
-                    replacement = `(${numStr} * (d/dx(x)))`; // Derivative of x is 1
+                    replacement = `(${numStr}*(d/dx(x)))`; 
                     break;
             }
 
-            // Replace only the specific instance of the number we found
             equation = equation.substring(0, match.index) + replacement + equation.substring(match.index + numStr.length);
         }
 
-        return equation;
+        // FINAL SWEEP: Removes any possible whitespace before returning
+        return equation.replace(/\s+/g, '');
     }
 
     // --- BUTTON ACTIONS ---
     generateBtn.addEventListener('click', () => {
         let targetValue = targetInput.value;
         if (!targetValue || targetValue === '-' || targetValue === '.') {
-            targetValue = '1'; // Fallback default
+            targetValue = '1'; 
             targetInput.value = '1';
         }
 
-        // Gather allowed rules
         const checkboxes = document.querySelectorAll('.rule-check:checked');
         const allowedRules = Array.from(checkboxes).map(cb => cb.value);
 
@@ -103,13 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Get complexity/iterations
         const iterations = parseInt(document.getElementById('complexity').value);
 
-        // Generate and display
         const result = obfuscateMath(targetValue, iterations, allowedRules);
         outputDisplay.textContent = result;
-        copyBtn.textContent = "Copy to Clipboard"; // Reset button text
+        copyBtn.textContent = "Copy to Clipboard"; 
     });
 
     copyBtn.addEventListener('click', () => {
