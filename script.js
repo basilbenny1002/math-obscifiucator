@@ -7,43 +7,52 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EDGE CASE HANDLING FOR INPUT ---
     targetInput.addEventListener('input', function(e) {
         let val = this.value;
-        
-        // Remove anything that isn't a number, a minus, or a dot
         val = val.replace(/[^0-9.-]/g, '');
-        
-        // Ensure minus sign is only at the beginning
         if (val.lastIndexOf('-') > 0) {
             val = val.replace(/-/g, '');
             val = '-' + val;
         }
-
-        // Prevent multiple decimal points
         let parts = val.split('.');
         if (parts.length > 2) {
             val = parts[0] + '.' + parts.slice(1).join('');
         }
-
-        // Limit accuracy to 5 decimal places max
         if (parts.length === 2 && parts[1].length > 5) {
             val = parts[0] + '.' + parts[1].substring(0, 5);
         }
-
-        // Limit total length to prevent massive base numbers
         if (val.length > 12) {
             val = val.substring(0, 12);
         }
-
         this.value = val;
     });
 
     // --- MATH GENERATOR LOGIC ---
     function obfuscateMath(targetValue, iterations, allowedRules) {
-        let equation = targetValue;
+        let equation = targetValue.toString();
+        let numTarget = parseFloat(targetValue);
 
-        for (let i = 0; i < iterations; i++) {
-            // Regex finds whole numbers or decimals that are standalone
-            let numMatches = [...equation.matchAll(/\b\d+(\.\d+)?\b/g)];
+        // --- THE BASE SCRAMBLER ---
+        // If it's a valid number and arithmetic is allowed, split the base number immediately!
+        // this basically prevents the user from decoding the number easily based on the initial digit
+        if (!isNaN(numTarget) && allowedRules.includes('arithmetic')) {
+            let r = Math.floor(Math.random() * 20) + 2; // Random number 2 to 21
             
+            if (Math.random() > 0.5) {
+                // Addition Split: 13 becomes (8 + 5)
+                let part1 = numTarget - r;
+                // Rounding to fix floating point errors (e.g. 0.1 + 0.2)
+                part1 = Math.round(part1 * 100000) / 100000; 
+                equation = `(${part1}+${r})`;
+            } else {
+                // Multiplication Split: 13 becomes (26 / 2)
+                let part1 = numTarget * r;
+                part1 = Math.round(part1 * 100000) / 100000;
+                equation = `(${part1}/${r})`;
+            }
+        }
+
+        // --- THE RECURSION LOOP ---
+        for (let i = 0; i < iterations; i++) {
+            let numMatches = [...equation.matchAll(/\b\d+(\.\d+)?\b/g)];
             if (numMatches.length === 0 || allowedRules.length === 0) break;
 
             let match = numMatches[Math.floor(Math.random() * numMatches.length)];
@@ -52,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let rule = allowedRules[Math.floor(Math.random() * allowedRules.length)];
             let replacement = "";
             let r = Math.floor(Math.random() * 50) + 2; 
-
 
             switch (rule) {
                 case 'arithmetic':
@@ -80,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
             equation = equation.substring(0, match.index) + replacement + equation.substring(match.index + numStr.length);
         }
 
-        // FINAL SWEEP: Removes any possible whitespace before returning
         return equation.replace(/\s+/g, '');
     }
 
